@@ -1,0 +1,10 @@
+#!/bin/bash
+
+#/opt/gentoo-rsync/rsync-gentoo-portage.sh # emerge -qa app-admin/gentoo-rsync-mirror
+tail -2 /opt/gentoo-rsync/rsync-gentoo-portage.sh.log
+#sleep 2
+# emerge --sync 
+SNAP=$(date +%Y%m%d%H%M)
+catalyst -s ${SNAP}
+ls -lrt /var/tmp/catalyst/snapshots/portage-${SNAP}.tar.bz2
+
