@@ -1,0 +1,7 @@
+dev-go/go-bindata ~amd64
+sys-cluster/kubelet ~amd64
+sys-cluster/kube-controller-manager ~amd64
+sys-cluster/kube-proxy ~amd64
+sys-cluster/kube-scheduler ~amd64
+sys-cluster/kube-apiserver ~amd64
+sys-cluster/kubectl ~amd64

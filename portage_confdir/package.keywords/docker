@@ -1,0 +1,3 @@
+app-emulation/docker ~amd64
+app-emulation/containerd ~amd64
+app-emulation/docker-runc ~amd64

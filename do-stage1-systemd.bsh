@@ -1,0 +1,17 @@
+#!/bin/bash
+
+SEED=$(ls -rt /var/tmp/catalyst/builds/*/stage3-amd64-systemd-*.tar.bz2 | tail -1 | cut -f6,7 -d/ | cut -f1 -d.)
+VERSION=$(date +%Y%m%d%H%M)
+SNAPSHOT=$(ls -rt /var/tmp/catalyst/snapshots/portage-*.tar.bz2 | tail -1)
+SNAP=$(basename ${SNAPSHOT} | cut -f1 -d. | cut -f2 -d-)
+echo ${SNAPSHOT} ${SNAP} ${SEED}
+
+catalyst -C target=stage1  \
+	portage_confdir=$(pwd)/portage_confdir \
+	version_stamp=systemd-${VERSION} \
+	subarch=amd64 \
+	rel_type=${SNAP} \
+	profile=default/linux/amd64/17.0/systemd \
+	snapshot=${SNAP} \
+	source_subpath=${SEED} 
+

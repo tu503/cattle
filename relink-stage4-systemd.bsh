@@ -1,0 +1,6 @@
+#!/bin/bash
+cd /var/www/localhost/htdocs/
+TARGET=stage4-amd64-systemd-latest.tar.bz2
+ln -sf $(ls -rt /var/tmp/catalyst/builds/*/stage4-amd64-systemd-*.tar.bz2|tail -1) ${TARGET}
+ls -lrt ${TARGET}
+
