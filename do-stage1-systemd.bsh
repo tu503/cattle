@@ -6,10 +6,12 @@ SNAPSHOT=$(ls -rt /var/tmp/catalyst/snapshots/portage-*.tar.bz2 | tail -1)
 SNAP=$(basename ${SNAPSHOT} | cut -f1 -d. | cut -f2 -d-)
 echo ${SNAPSHOT} ${SNAP} ${SEED}
 
-catalyst -C target=stage1  \
+catalyst -p -C target=stage1  \
 	portage_confdir=$(pwd)/portage_confdir \
 	version_stamp=systemd-${VERSION} \
 	subarch=amd64 \
+	update_seed=yes \
+	update_seed_command="--update --deep @world" \
 	rel_type=${SNAP} \
 	profile=default/linux/amd64/17.0/systemd \
 	snapshot=${SNAP} \

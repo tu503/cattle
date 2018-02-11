@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# ls -d /var/tmp/catalyst/tmp/*/netboot2-amd64-systemd-* 
+LAYOUT=$(ls -d /var/tmp/catalyst/tmp/*/netboot2-amd64-systemd-* | tail -1)
+
+cd ${LAYOUT}
+
+pwd
+ln -snf usr/lib/systemd/systemd init
+ls -l init
+
+find .  -not \( -iregex './tmp/.*' \
+	-or -iregex './boot/.*' \
+	-or -iregex './lib64/udev/rules.d/.*' \
+	-or -iregex './var/db.*' \
+	-or -iregex './var/cache.*' \
+	-or -iregex './usr/info.*' \
+	-or -iregex './usr/man.*' \
+	-or -iregex './usr/share/doc.*' \
+	-or -iregex './usr/share/genkernel.*' \
+	-or -iregex './usr/share/gtk-doc.*' \
+	-or -iregex './usr/share/i18n.*' \
+	-or -iregex './usr/share/info.*' \
+	-or -iregex './usr/share/locale/.*' \
+	-or -iregex './usr/share/man.*' \
+	-or -iregex './usr/share/mine.*' \
+	-or -iregex './usr/share/misc.*' \
+	-or -iregex './usr/share/sgml.*' \
+	-or -iregex './usr/libexec/git-core.*' \
+	-or -iregex './usr/lib64/locale/locale-archive' \
+	-or -iregex './usr/lib64/python3.*' \
+	-or -iregex './usr/include/python3.*' \
+	-or -iregex './usr/lib64/gcc.*' \) -or \( \
+		 -iregex './usr/share/locale/en.*' \
+	\) \
+	| tee /root/cattle/mkcpio.log | cpio -o -H newc | gzip -9 > /data/store/pxe/initrd-$(date +%Y%m%d%H%M)
+
+cp $(ls -rtd  /var/tmp/catalyst/builds/*/netboot2-amd64-systemd-*/kernels/gentoo | tail -1) /data/store/pxe/x86_64-$(date +%Y%m%d%H%M)
+
+cd /data/store/pxe
+
+ln -snf $(ls -rt initrd-2*|tail -1) initrd-x
+ln -snf $(ls -rt x86_64-2*|tail -1) x86_64-x
+
+ls -lrt | tail -2
+

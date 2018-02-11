@@ -6,13 +6,16 @@ SNAPSHOT=$(ls -rt /var/tmp/catalyst/snapshots/portage-*.tar.bz2 | tail -1)
 SNAP=$(basename ${SNAPSHOT} | cut -f1 -d. | cut -f2 -d-)
 echo SNAPSHOT: ${SNAPSHOT}, SNAP: ${SNAP}, SEED: ${SEED}
 
-catalyst -p -f specs/stage4.spec -C target=stage4  \
+catalyst -p -f specs/netboot2.spec -C target=netboot2  \
 	portage_confdir=$(pwd)/portage_confdir \
-	stage4/root_overlay=$(pwd)/root_overlay \
+	netboot2/root_overlay=$(pwd)/root_overlay \
 	version_stamp=systemd-${VERSION} \
 	subarch=amd64 \
 	rel_type=${SNAP} \
 	profile=default/linux/amd64/17.0/systemd \
 	snapshot=${SNAP} \
 	source_subpath=${SEED} 
+
+ls -rltd /var/tmp/catalyst/tmp/*/netboot2-amd64-systemd-* | tail -1
+ls -rltd /var/tmp/catalyst/builds/*/netboot2-amd64-systemd-*/kernels/gentoo | tail -1
 

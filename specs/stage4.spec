@@ -8,6 +8,10 @@ stage4/packages:
 	grub
 	vim
 	etcd
+	app-misc/tmux
+	dev-lang/go
+	dev-go/go-bindata
+	sys-fs/btrfs-progs
 	app-emulation/docker
 	sys-cluster/kube-apiserver
 	sys-cluster/kube-controller-manager
