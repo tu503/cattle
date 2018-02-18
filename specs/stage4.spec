@@ -10,6 +10,7 @@ stage4/packages:
 	etcd
 	app-misc/tmux
 	dev-lang/go
+	sys-apps/ipmitool
 	dev-go/go-bindata
 	sys-fs/btrfs-progs
 	app-emulation/docker

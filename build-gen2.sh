@@ -69,39 +69,22 @@ cat << EOT > ${MP}/etc/fstab
 /dev/sda2               /boot           ext4            noauto,noatime  1 2
 /dev/sda4               /               ext4            noatime         0 1
 /dev/sda3               none            swap            sw              0 0
-#10.175.188.54:/shared   /mnt/shared  nfs auto,rw,bg,hard,intr,tcp,vers=3,rsize=32768,wsize=32768,timeo=600
+/dev/sdb                /data           btrfs           noauto          0 1
 EOT
 
-# ls /sys/class/net/*/address | grep -v '/lo/'
+mkdir -p ${MP}/data
 
-# needs configuration
-cat << EOT > ${MP}/etc/conf.d/net
-#config_eno1="dhcp"
-#routes_eno1="default via 192.168.88.1"
-config_${ZINT}="${ZIP}/${ZCIDR}"
+cat << EOT > ${MP}/etc/systemd/timesyncd.conf
+[Time]
+NTP=utcnist.colorado.edu
+FallbackNTP=0.gentoo.pool.ntp.org 1.gentoo.pool.ntp.org 2.gentoo.pool.ntp.org 3.gentoo.pool.ntp.org
+RootDistanceMaxSec=5
+PollIntervalMinSec=32
+PollIntervalMaxSec=2048
 EOT
 
-# need to set /etc/resolv.conf to dhcp value
-cat << EOT > ${MP}/etc/resolv.conf
-nameserver 192.168.88.209
-#nameserver ${ZDNS}
-EOT
-
-# cd /mnt/gentoo/etc/init.d
-#ln -s net.lo net.eno1
-# ln -s net.lo net.${ZINT}
-
-# cd /mnt/gentoo/etc/runlevels/default
-#ln -s /etc/init.d/net.eno1
-# ln -s /etc/init.d/net.${ZINT}
-# ln -s /etc/init.d/sshd
-
-cat << EOT > ${MP}/etc/conf.d/hostname 
-# Set to the hostname of this machine
-hostname="${ZHOST}"
-EOT
-
-sed -i 's/root:\*/root:$6$9v2bT0AA$\/dkXNpUDnEyuyA3tXzmT1Hmcsou4XYYNX7b89Xh8UXIRhO5ChnGHpyKccMMugPnLyaMtZW\/oUb6H.5J4T53xN1/' ${MP}/etc/shadow
+echo "root:!jacks" | chpasswd -R ${MP}
+echo sm3 > ${MP}/etc/hostname
 
 (cd ${MP} && mount -t proc none proc)
 (cd ${MP} && mount --rbind /sys sys)
@@ -109,16 +92,12 @@ sed -i 's/root:\*/root:$6$9v2bT0AA$\/dkXNpUDnEyuyA3tXzmT1Hmcsou4XYYNX7b89Xh8UXIR
 (cd ${MP} && chroot . eselect python set 1)
 (cd ${MP} && chroot . grub-install /dev/sda)
 (cd ${MP} && chroot . grub-mkconfig -o /boot/grub/grub.cfg)
-(cd ${MP} && chroot . echo sm3 >/etc/hostname)
 (cd ${MP} && chroot . systemd-machine-id-setup)
 (cd ${MP} && chroot . systemctl enable systemd-networkd.service)
+(cd ${MP} && chroot . systemctl enable systemd-timesyncd.service)
 (cd ${MP} && chroot . ln -snf /run/systemd/resolve/resolv.conf /etc/resolv.conf)
 (cd ${MP} && chroot . systemctl enable systemd-resolved.service)
 (cd ${MP} && chroot . systemctl enable sshd.service)
-
-# Enable serial tty's so "virsh console" works
-sed -i 's/^#s0:/s0:/' ${MP}/etc/inittab 
-#sed -i 's/^#s1:/s1:/' ${MP}/etc/inittab 
 
 # umount /mnt/gentoo/dev
 # umount /mnt/gentoo/sys
@@ -126,6 +105,5 @@ sed -i 's/^#s0:/s0:/' ${MP}/etc/inittab
 # umount /mnt/gentoo/boot
 # umount /mnt/gentoo
 
-#scp /etc/init.d/setup ${XHOST}:/root/catalyst/root_overlay/netboot2/etc/init.d/setup
-#scp /root/.scripts/setup.bsh ${XHOST}:/root/catalyst/root_overlay/netboot2/root/.scripts/setup.bsh
-### shutdown -r now && exit
+# shutdown -r now && exit
+

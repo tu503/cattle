@@ -3,19 +3,34 @@
 # ls -d /var/tmp/catalyst/tmp/*/netboot2-amd64-systemd-* 
 LAYOUT=$(ls -d /var/tmp/catalyst/tmp/*/netboot2-amd64-systemd-* | tail -1)
 
+echo "root:!jacks" |  chpasswd -R ${LAYOUT}
+chroot ${LAYOUT} systemctl enable systemd-networkd
+chroot ${LAYOUT} systemctl enable systemd-resolved
+chroot ${LAYOUT} systemctl enable systemd-timesyncd
+chroot ${LAYOUT} systemctl enable sshd
+echo "catalyst" > ${LAYOUT}/etc/hostname
+echo "NTP=utcnist.colorado.edu" >> ${LAYOUT}/etc/systemd/timesyncd.conf
+
 cd ${LAYOUT}
 
 pwd
 ln -snf usr/lib/systemd/systemd init
 ls -l init
 
+# find . | tee /root/cattle/mkcpio.log | cpio -o -H newc | gzip -9 > /data/store/pxe/initrd-$(date +%Y%m%d%H%M)
+
 find .  -not \( -iregex './tmp/.*' \
 	-or -iregex './boot/.*' \
 	-or -iregex './lib64/udev/rules.d/.*' \
 	-or -iregex './var/db.*' \
 	-or -iregex './var/cache.*' \
+	-or -iregex './usr/src.*' \
 	-or -iregex './usr/info.*' \
 	-or -iregex './usr/man.*' \
+	-or -iregex './usr/share/vim.*' \
+	-or -iregex './usr/share/aclocal.*' \
+	-or -iregex './usr/share/cmake.*' \
+	-or -iregex './usr/share/gcc-data.*' \
 	-or -iregex './usr/share/doc.*' \
 	-or -iregex './usr/share/genkernel.*' \
 	-or -iregex './usr/share/gtk-doc.*' \
@@ -28,10 +43,14 @@ find .  -not \( -iregex './tmp/.*' \
 	-or -iregex './usr/share/sgml.*' \
 	-or -iregex './usr/libexec/git-core.*' \
 	-or -iregex './usr/lib64/locale/locale-archive' \
-	-or -iregex './usr/lib64/python3.*' \
+	-or -iregex './usr/lib64/python.*' \
+	-or -iregex './usr/lib64/perl.*' \
 	-or -iregex './usr/include/python3.*' \
-	-or -iregex './usr/lib64/gcc.*' \) -or \( \
-		 -iregex './usr/share/locale/en.*' \
+	-or -iregex './usr/include/boost.*' \
+	-or -iregex './usr/lib64/xxx_gcc.*' \) -or \( \
+		-iregex './usr/share/locale/en.*' \
+		-iregex './usr/lib/gcc/x86_64-pc-linux-gnu/6.4.0/libstdc++.so.6' \
+		-iregex './usr/lib/gcc/x86_64-pc-linux-gnu/6.4.0/libgcc_s.so.1' \
 	\) \
 	| tee /root/cattle/mkcpio.log | cpio -o -H newc | gzip -9 > /data/store/pxe/initrd-$(date +%Y%m%d%H%M)
 

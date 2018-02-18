@@ -5,6 +5,7 @@
 netboot2/use:
 netboot2/packages:
 	app-editors/vim
+	sys-apps/gptfdisk
 # netboot2/fsscript:
 # netboot2/splash_theme:
 # netboot2/gk_mainargs:
