@@ -6,7 +6,7 @@ SNAPSHOT=$(ls -rt /var/tmp/catalyst/snapshots/portage-*.tar.bz2 | tail -1)
 SNAP=$(basename ${SNAPSHOT} | cut -f1 -d. | cut -f2 -d-)
 echo SNAPSHOT: ${SNAPSHOT}, SNAP: ${SNAP}, SEED: ${SEED}
 
-catalyst -f specs/stage4.spec -C target=stage4  \
+catalyst -f specs/ceph.spec -C target=stage4  \
 	portage_confdir=~/portage-confdir \
 	stage4/root_overlay=$(pwd)/root_overlay \
 	version_stamp=systemd-${VERSION} \

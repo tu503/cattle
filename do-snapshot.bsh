@@ -1,6 +1,6 @@
 #!/bin/bash
 
-/opt/gentoo-rsync/rsync-gentoo-portage.sh # emerge -qa app-admin/gentoo-rsync-mirror
+# /opt/gentoo-rsync/rsync-gentoo-portage.sh # emerge -qa app-admin/gentoo-rsync-mirror
 tail -2 /opt/gentoo-rsync/rsync-gentoo-portage.sh.log
 #sleep 2
 # emerge --sync 

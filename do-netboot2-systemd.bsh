@@ -7,7 +7,7 @@ SNAP=$(basename ${SNAPSHOT} | cut -f1 -d. | cut -f2 -d-)
 echo SNAPSHOT: ${SNAPSHOT}, SNAP: ${SNAP}, SEED: ${SEED}
 
 catalyst -p -f specs/netboot2.spec -C target=netboot2  \
-	portage_confdir=$(pwd)/portage_confdir \
+	portage_confdir=~/portage-confdir \
 	netboot2/root_overlay=$(pwd)/root_overlay \
 	version_stamp=systemd-${VERSION} \
 	subarch=amd64 \

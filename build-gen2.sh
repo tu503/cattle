@@ -8,8 +8,8 @@
 # ZHOST=`grep ^host_name /tmp/dhcp-dump | cut -f2 -d=`
 # ZINT=eno2
 
-XHOST=192.168.88.209
-REL=20170917
+XHOST=192.168.88.34
+REL=201808131835
 SNAP=${REL}
 
 ## Setup partion table and partions on local disk

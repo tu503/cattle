@@ -3,7 +3,7 @@
 # ls -d /var/tmp/catalyst/tmp/*/netboot2-amd64-systemd-* 
 LAYOUT=$(ls -d /var/tmp/catalyst/tmp/*/netboot2-amd64-systemd-* | tail -1)
 
-echo "root:!jacks" |  chpasswd -R ${LAYOUT}
+echo "root:xxx" |  chpasswd -R ${LAYOUT}
 chroot ${LAYOUT} systemctl enable systemd-networkd
 chroot ${LAYOUT} systemctl enable systemd-resolved
 chroot ${LAYOUT} systemctl enable systemd-timesyncd

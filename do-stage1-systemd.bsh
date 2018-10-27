@@ -11,9 +11,9 @@ catalyst -p -C target=stage1  \
 	version_stamp=systemd-${VERSION} \
 	subarch=amd64 \
 	update_seed=yes \
-	update_seed_command="--update --deep @world" \
 	rel_type=${SNAP} \
 	profile=default/linux/amd64/17.0/systemd \
 	snapshot=${SNAP} \
 	source_subpath=${SEED} 
+	#update_seed_command="--update --deep @world" \
 

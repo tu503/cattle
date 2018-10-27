@@ -3,7 +3,7 @@
 # pkgcache_path:
 # kerncache_path:
 stage4/use:
-stage4/packages: @infra
+stage4/packages: @ceph
 # stage4/fsscript:
 # stage4/splash_theme:
 # stage4/gk_mainargs:

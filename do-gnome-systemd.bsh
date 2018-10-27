@@ -6,13 +6,13 @@ SNAPSHOT=$(ls -rt /var/tmp/catalyst/snapshots/portage-*.tar.bz2 | tail -1)
 SNAP=$(basename ${SNAPSHOT} | cut -f1 -d. | cut -f2 -d-)
 echo SNAPSHOT: ${SNAPSHOT}, SNAP: ${SNAP}, SEED: ${SEED}
 
-catalyst -f specs/stage4.spec -C target=stage4  \
-	portage_confdir=~/portage-confdir \
+catalyst -p -f specs/stage4.spec -C target=stage4  \
+	portage_confdir=$(pwd)/portage_confdir \
 	stage4/root_overlay=$(pwd)/root_overlay \
-	version_stamp=systemd-${VERSION} \
+	version_stamp=gnome-systemd-${VERSION} \
 	subarch=amd64 \
 	rel_type=${SNAP} \
-	profile=default/linux/amd64/17.0/systemd \
+	profile=default/linux/amd64/17.0/desktop/gnome/systemd \
 	snapshot=${SNAP} \
 	source_subpath=${SEED} 
 

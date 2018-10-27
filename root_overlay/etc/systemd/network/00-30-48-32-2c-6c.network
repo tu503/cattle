@@ -1,0 +1,6 @@
+[Match]
+MACAddress=00:30:48:32:2c:6c
+
+[Network]
+Address=192.168.88.36
+Gateway=192.168.88.1

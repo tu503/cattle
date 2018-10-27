@@ -1,3 +1,5 @@
 app-emulation/docker ~amd64
 app-emulation/containerd ~amd64
 app-emulation/docker-runc ~amd64
+app-emulation/runc ~amd64
+dev-python/docker-pycreds ~amd64

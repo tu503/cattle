@@ -2,3 +2,10 @@
 * CONFIG_CHECKPOINT_RESTORE
 * CONFIG_FANOTIFY
 * CONFIG_CRYPTO_USER_API_HASH
+
+*   CONFIG_AUTOFS4_FS:  is not set when it should be.
+*   CONFIG_CHECKPOINT_RESTORE:  is not set when it should be.
+*   CONFIG_FANOTIFY:    is not set when it should be.
+*   CONFIG_CRYPTO_USER_API_HASH:        is not set when it should be.
+*   CONFIG_CGROUP_BPF:  is not set when it should be.
+
