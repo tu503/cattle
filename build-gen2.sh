@@ -10,6 +10,7 @@
 
 XHOST=192.168.88.34
 REL=201808131835
+REL=latest
 SNAP=${REL}
 
 ## Setup partion table and partions on local disk

@@ -3,7 +3,8 @@
 # ls -d /var/tmp/catalyst/tmp/*/netboot2-amd64-systemd-* 
 LAYOUT=$(ls -d /var/tmp/catalyst/tmp/*/netboot2-amd64-systemd-* | tail -1)
 
-echo "root:xxx" |  chpasswd -R ${LAYOUT}
+echo -n "set root password: " && read -s PASSWORD && export PASSWORD
+echo "root:${PASSWORD}" |  chpasswd -R ${LAYOUT}
 chroot ${LAYOUT} systemctl enable systemd-networkd
 chroot ${LAYOUT} systemctl enable systemd-resolved
 chroot ${LAYOUT} systemctl enable systemd-timesyncd
