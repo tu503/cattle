@@ -24,6 +24,3 @@ boot/kernel/gentoo/gk_kernargs: --all-ramdisk-modules
 # boot/kernel/gentoo/use:
 # boot/kernel/gentoo/extraversion:
 # boot/kernel/gentoo/packages:
-# netboot2/unmerge:
-netboot2/empty: /usr/src
-# netboot2/rm:
