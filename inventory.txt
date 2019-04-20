@@ -1,0 +1,4 @@
+[ceph]
+sm0
+sm1
+sm3

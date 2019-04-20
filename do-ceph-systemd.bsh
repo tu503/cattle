@@ -9,7 +9,7 @@ echo SNAPSHOT: ${SNAPSHOT}, SNAP: ${SNAP}, SEED: ${SEED}
 catalyst -f specs/ceph.spec -C target=stage4  \
 	portage_confdir=~/portage-confdir \
 	stage4/root_overlay=$(pwd)/root_overlay \
-	version_stamp=systemd-${VERSION} \
+	version_stamp=systemd-ceph-${VERSION} \
 	subarch=amd64 \
 	rel_type=${SNAP} \
 	profile=default/linux/amd64/17.0/systemd \
