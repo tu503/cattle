@@ -84,6 +84,8 @@ PollIntervalMinSec=32
 PollIntervalMaxSec=2048
 EOT
 
+echo -n "root password: " && read -s PASSWORD && export PASSWORD
+
 echo "root:${PASSWORD}" | chpasswd -R ${MP}
 echo sm3 > ${MP}/etc/hostname
 
