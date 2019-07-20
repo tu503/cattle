@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ls -d /var/tmp/catalyst/tmp/*/netboot2-amd64-systemd-* 
-LAYOUT=$(ls -d /var/tmp/catalyst/tmp/*/netboot2-amd64-systemd-* | tail -1)
+LAYOUT=$(ls -d /data/catalyst/tmp/*/netboot2-amd64-systemd-* | tail -1)
 
 echo -n "set root password: " && read -s PASSWORD && export PASSWORD
 echo "root:${PASSWORD}" |  chpasswd -R ${LAYOUT}
@@ -55,7 +55,7 @@ find .  -not \( -iregex './tmp/.*' \
 	\) \
 	| tee /root/cattle/mkcpio.log | cpio -o -H newc | gzip -9 > /data/store/pxe/initrd-$(date +%Y%m%d%H%M)
 
-cp $(ls -rtd  /var/tmp/catalyst/builds/*/netboot2-amd64-systemd-*/kernels/gentoo | tail -1) /data/store/pxe/x86_64-$(date +%Y%m%d%H%M)
+cp $(ls -rtd  /data/catalyst/builds/*/netboot2-amd64-systemd-*/kernels/gentoo | tail -1) /data/store/pxe/x86_64-$(date +%Y%m%d%H%M)
 
 cd /data/store/pxe
 

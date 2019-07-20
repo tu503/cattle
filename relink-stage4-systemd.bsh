@@ -2,10 +2,10 @@
 cd /var/www/localhost/htdocs/
 
 TARGET=stage4-amd64-systemd-latest.tar.bz2
-ln -sf $(ls -rt /var/tmp/catalyst/builds/*/stage4-amd64-systemd-ceph-2*.tar.bz2|tail -1) ${TARGET}
+ln -sf $(ls -rt /data/catalyst/builds/*/stage4-amd64-systemd-ceph-2*.tar.bz2|tail -1) ${TARGET}
 ls -lrt ${TARGET}
 
 TARGET=portage-latest.tar.bz2
-ln -sf $(ls -rt /var/tmp/catalyst/snapshots/portage-*.tar.bz2 |tail -1) ${TARGET}
+ln -sf $(ls -rt /data/catalyst/snapshots/portage-*.tar.bz2 |tail -1) ${TARGET}
 ls -lrt ${TARGET}
 
