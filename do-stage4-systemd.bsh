@@ -1,5 +1,6 @@
 #!/bin/bash
 
+BUILD_DIR=/data/build
 STORDIR=$(grep ^storedir /etc/catalyst/catalyst.conf | cut -f2 -d\")
 SEED=$(ls -rt ${STORDIR}/builds/*/stage3-amd64-systemd-*.tar.bz2 | tail -1 | cut -f6,7 -d/ | cut -f1 -d.)
 VERSION=$(date +%Y%m%d%H%M)
@@ -7,8 +8,8 @@ SNAPSHOT=$(ls -rt ${STORDIR}/snapshots/portage-*.tar.bz2 | tail -1)
 SNAP=$(basename ${SNAPSHOT} | cut -f1 -d. | cut -f2 -d-)
 echo SNAPSHOT: ${SNAPSHOT}, SNAP: ${SNAP}, SEED: ${SNAP}/${SEED}
 
-catalyst -f specs/stage4.spec -C target=stage4  \
-	portage_confdir=~/portage-confdir \
+catalyst -p -f specs/stage4.spec -C target=stage4  \
+	portage_confdir=${BUILD_DIR}/portage-confdir \
 	stage4/root_overlay=$(pwd)/root_overlay \
 	version_stamp=systemd-${VERSION} \
 	subarch=amd64 \

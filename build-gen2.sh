@@ -8,7 +8,7 @@
 # ZHOST=`grep ^host_name /tmp/dhcp-dump | cut -f2 -d=`
 # ZINT=eno2
 
-XHOST=192.168.88.34
+XHOST=192.168.88.66
 REL=201808131835
 REL=latest
 SNAP=${REL}
