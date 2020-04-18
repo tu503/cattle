@@ -6,5 +6,5 @@ tail -2 /opt/gentoo-rsync/rsync-gentoo-portage.sh.log
 # emerge --sync 
 SNAP=$(date +%Y%m%d%H%M)
 catalyst -s ${SNAP}
-ls -lrt /var/tmp/catalyst/snapshots/portage-${SNAP}.tar.bz2
+ls -lrt /data/catalyst/snapshots/portage-${SNAP}.tar.bz2
 

@@ -26,7 +26,7 @@ netboot2/packages:
 # netboot2/users:
 boot/kernel: gentoo
 boot/kernel/gentoo/sources: gentoo-sources
-boot/kernel/gentoo/config: /root/kernel-config/kernel-config-x86_64-latest-gentoo
+boot/kernel/gentoo/config: /data/build/kernel-config/kernel-config-x86_64-latest-gentoo
 boot/kernel/gentoo/gk_kernargs: --all-ramdisk-modules --firmware
 # boot/kernel/gentoo/use:
 # boot/kernel/gentoo/extraversion:

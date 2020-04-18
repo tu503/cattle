@@ -1,0 +1,4 @@
+[Match]
+MACAddress=00:25:90:33:69:d5
+[Network]
+Bond=bond0

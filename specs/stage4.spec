@@ -2,7 +2,7 @@
 # portage_overlay:
 # pkgcache_path:
 # kerncache_path:
-stage4/use:
+stage4/use: cgroup-hybrid -filecaps -bindist
 stage4/packages: @infra
 # stage4/fsscript:
 # stage4/splash_theme:
@@ -17,7 +17,7 @@ stage4/packages: @infra
 # stage4/users:
 boot/kernel: gentoo
 boot/kernel/gentoo/sources: gentoo-sources
-boot/kernel/gentoo/config: /root/kernel-config/kernel-config-x86_64-latest-gentoo
+boot/kernel/gentoo/config: /data/build/kernel-config/kernel-config-x86_64-latest-gentoo
 # boot/kernel/gentoo/gk_kernargs:
 # boot/kernel/gentoo/use:
 # boot/kernel/gentoo/extraversion:

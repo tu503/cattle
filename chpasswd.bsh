@@ -1,2 +1,2 @@
 #!/bin/bash
-echo root:jacks | /usr/sbin/chpasswd
+echo root:${ZPASS} | /usr/sbin/chpasswd

@@ -53,7 +53,7 @@ find .  -not \( -iregex './tmp/.*' \
 		-iregex './usr/lib/gcc/x86_64-pc-linux-gnu/6.4.0/libstdc++.so.6' \
 		-iregex './usr/lib/gcc/x86_64-pc-linux-gnu/6.4.0/libgcc_s.so.1' \
 	\) \
-	| tee /root/cattle/mkcpio.log | cpio -o -H newc | gzip -9 > /data/store/pxe/initrd-$(date +%Y%m%d%H%M)
+	| tee /data/build/cattle/mkcpio.log | cpio -o -H newc | gzip -9 > /data/store/pxe/initrd-$(date +%Y%m%d%H%M)
 
 cp $(ls -rtd  /data/catalyst/builds/*/netboot2-amd64-systemd-*/kernels/gentoo | tail -1) /data/store/pxe/x86_64-$(date +%Y%m%d%H%M)
 

@@ -1,1 +1,1 @@
-stage3/use: -filecaps
+stage3/use: cgroup-hybrid -filecaps -bindist

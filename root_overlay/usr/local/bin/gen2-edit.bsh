@@ -1,0 +1,7 @@
+#!/bin/bash
+FULLPATH=$1
+echo ${FULLPATH}
+echo /data/build/cattle/root_overlay${FULLPATH}
+vim ${FULLPATH}
+mkdir -p $(dirname /data/build/cattle/root_overlay${FULLPATH})
+cp -v ${FULLPATH} /data/build/cattle/root_overlay${FULLPATH}

@@ -1,0 +1,20 @@
+
+PSTAGE=$1
+BUILDIR=/data/build
+STORDIR=$(grep ^storedir /etc/catalyst/catalyst.conf | cut -f2 -d\")
+SEED=$(ls -rt ${STORDIR}/builds/*/${PSTAGE}-amd64-systemd-*.tar.bz2 | tail -1 | cut -f5,6 -d/ | cut -f1 -d.)
+# VERSION=$(date +%Y%m%d%H%M)
+VERSION=$(date +%Y%m%d)
+SNAPSHOT=$(ls -rt ${STORDIR}/snapshots/portage-*.tar.bz2 | tail -1)
+SNAP=$(basename ${SNAPSHOT} | cut -f1 -d. | cut -f2 -d-)
+
+echo
+echo "   PSTAGE: ${PSTAGE}"
+echo " BUILDIR: ${BUILDIR}"
+echo " STORDIR: ${STORDIR}"
+echo "    SEED: ${SEED}"
+echo " VERSION: ${VERSION}"
+echo "SNAPSHOT: ${SNAPSHOT}"
+echo "    SNAP: ${SNAP}"
+echo
+
