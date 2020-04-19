@@ -38,10 +38,37 @@ EOT
 # echo "root:" | chpasswd -R ${MP}
 echo xxx > ${MP}/etc/hostname
 
+rm -f ${MP}/etc/systemd/network/*
+
+cat << EOT > ${MP}/etc/systemd/05-interface.network
+[Match]
+Name=enp0s3
+[Network]
+DHCP=no
+DNS=127.0.0.1
+Domains=members.linode.com
+IPv6PrivacyExtensions=false
+Gateway=45.33.98.1
+Address=45.33.98.28/24
+EOT
+
+cat << EOT > ${MP}/etc/unbound/unbound.mkconf
+server:
+        verbosity: 1
+        interface: 127.0.0.1
+        interface: ::1
+python:
+remote-control:
+EOT
+
+(cd ${MB}/etc/portage  && ln -sf /usr/portage/profiles/default/linux/amd64/17.0/systemd make.profile)
+(cd ${MB}/var/db/repos && rmdir portage && ln -s /usr/portage)
+
 (cd ${MP} && mount -t proc none proc)
 (cd ${MP} && mount --rbind /sys sys)
 (cd ${MP} && mount --rbind /dev dev) 
 (cd ${MP} && chroot . eselect python set 1)
+(cd ${MP} && chroot . grub-install ${DISK})
 (cd ${MP} && chroot . grub-mkconfig -o /boot/grub/grub.cfg)
 (cd ${MP} && chroot . systemd-machine-id-setup)
 (cd ${MP} && chroot . systemctl enable systemd-networkd.service)
@@ -49,6 +76,8 @@ echo xxx > ${MP}/etc/hostname
 (cd ${MP} && chroot . ln -snf /run/systemd/resolve/resolv.conf /etc/resolv.conf)
 (cd ${MP} && chroot . systemctl enable systemd-resolved.service)
 (cd ${MP} && chroot . systemctl enable sshd.service)
+(cd ${MP} && chroot . systemctl enable unbound.service)
+(cd ${MP} && chroot . systemctl enable syslog-ng@default.service)
 
 # umount /mnt/gentoo/dev
 # umount /mnt/gentoo/sys
