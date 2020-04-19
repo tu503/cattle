@@ -4,16 +4,14 @@ XHOST=alcg.io
 REL=latest
 IMG=stage4-amd64-systemd-latest.tar.bz2
 
-## Setup partion table and partions on local disk
-
 DISK=sda
+
+mkfs -t xfs -f /dev/${DISK}
 
 MP=/mnt/gentoo
 
 mkdir -p ${MP}
 mount /dev/${DISK} ${MP}
-
-# can't wget w/o network, see /etc/init.d/setup
 
 URI=http://${XHOST}/${IMG}
 wget -O - ${URI} | tar xjf - -C ${MP}
@@ -22,7 +20,7 @@ URI=http://${XHOST}/portage-latest.tar.bz2
 wget -O - ${URI} | tar xjf - -C ${MP}/usr
 
 cat << EOT > ${MP}/etc/fstab
-/dev/sda    /       ext4     defaults    0  1
+/dev/sda    /       xfs     defaults    0  1
 /dev/sdb    none    swap     sw      0  0
 EOT
 

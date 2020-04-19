@@ -18,7 +18,8 @@ GRUB_DISTRIBUTOR="GEN2"
 #GRUB_TIMEOUT_STYLE=menu
 
 # Append parameters to the linux kernel command line
-GRUB_CMDLINE_LINUX="init=/usr/lib/systemd/systemd console=ttyS0"
+#GRUB_CMDLINE_LINUX="init=/usr/lib/systemd/systemd console=ttyS0"
+GRUB_CMDLINE_LINUX="init=/usr/lib/systemd/systemd"
 #
 # Examples:
 #
