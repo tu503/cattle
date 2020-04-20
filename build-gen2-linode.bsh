@@ -55,11 +55,22 @@ EOT
 
 cat << EOT > ${MP}/etc/unbound/unbound.mkconf
 server:
-        verbosity: 1
-        interface: 127.0.0.1
-        interface: ::1
+  verbosity: 1
+  interface: 127.0.0.1
+  interface: ::1
 python:
 remote-control:
+EOT
+
+cat << EOT > ${MP}/etc/ssh/sshd_config
+Port 2223
+PermitRootLogin yes
+PasswordAuthentication no
+UsePAM yes
+PrintMotd no
+PrintLastLog no
+Subsystem       sftp    /usr/lib64/misc/sftp-server
+AcceptEnv LANG LC_*
 EOT
 
 (cd ${MP}/etc/portage  && ln -sf /usr/portage/profiles/default/linux/amd64/17.0/systemd make.profile)
