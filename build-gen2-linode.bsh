@@ -24,6 +24,7 @@ cat << EOT > ${MP}/etc/fstab
 /dev/sdb    none    swap     sw      0  0
 EOT
 
+rm -rf ${MP}/data
 mkdir -p ${MP}/data
 
 cat << EOT > ${MP}/etc/systemd/timesyncd.conf
@@ -36,11 +37,11 @@ PollIntervalMaxSec=2048
 EOT
 
 # echo "root:" | chpasswd -R ${MP}
-echo xxx > ${MP}/etc/hostname
+echo li1040-28.members.linode.com > ${MP}/etc/hostname
 
 rm -f ${MP}/etc/systemd/network/*
 
-cat << EOT > ${MP}/etc/systemd/05-interface.network
+cat << EOT > ${MP}/etc/systemd/network/05-interface.network
 [Match]
 Name=enp0s3
 [Network]
@@ -61,8 +62,8 @@ python:
 remote-control:
 EOT
 
-(cd ${MB}/etc/portage  && ln -sf /usr/portage/profiles/default/linux/amd64/17.0/systemd make.profile)
-(cd ${MB}/var/db/repos && rmdir portage && ln -s /usr/portage)
+(cd ${MP}/etc/portage  && ln -sf /usr/portage/profiles/default/linux/amd64/17.0/systemd make.profile)
+(cd ${MP}/var/db/repos && rmdir portage && ln -s /usr/portage)
 
 (cd ${MP} && mount -t proc none proc)
 (cd ${MP} && mount --rbind /sys sys)
